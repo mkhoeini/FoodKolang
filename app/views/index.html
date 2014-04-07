@@ -19,7 +19,9 @@
 </head>
 <body data-ng-app="app" data-ng-controller="ctrl as ctrl">
     <div class="container-fluid">
-        <h3 class="text-center">پرتقال</h3>
+        <h3 class="text-center">
+          <span data-my-editable="ctrl.progName" data-i-type="text">&nbsp;</span>
+        </h3>
         <a href="#" class="pull-left non-print" data-ng-click="ctrl.print()">
             <span class="glyphicon glyphicon-print">&nbsp;</span>
         </a>
@@ -29,7 +31,7 @@
 
         <div class="pull-right">
             شماره سفارش
-            <input type="number" data-ng-model="ctrl.orderNumber">
+            <span data-i-type="number" data-my-editable="ctrl.orderNumber">&nbsp;</span>
         </div>
 
         <table class="table table-hover">
@@ -54,31 +56,64 @@
                             <span class="glyphicon glyphicon-arrow-down">&nbsp;</span>
                         </a>
                     </span>
-                    <span class="print">{{$index + 1}}</span>
+                    <span class="print">{{$index + 1 | persian}}</span>
                 </td>
-                <td>{{food.name}}</td>
-                <td class="text-left">{{food.count | persian}}</td>
-                <td class="text-left">{{food.price | persian}}</td>
-                <td class="text-left">{{food.totalPrice | persian}}</td>
-            </tr>
-
-            <tr>
-                <td class="col-id">
-                    <a href="#" data-ng-click="ctrl.addFood()">
-                        <span class="glyphicon glyphicon-plus">&nbsp;</span>
-                    </a>
+                <td><span data-my-editable="food.name" data-i-type="text">&nbsp;</span></td>
+                <td class="text-left">
+                  <span data-my-editable="food.count" data-i-type="number">&nbsp;</span>
                 </td>
-                <td class="col-order"><input type="text" data-ng-model="ctrl.food.name"></td>
-                <td class="col-count"><input type="number" data-ng-model="ctrl.food.count"></td>
-                <td class="col-fee"><input type="number" data-ng-model="ctrl.food.price"></td>
-                <td class="col-price"><input type="number" data-ng-model="ctrl.food.totalPrice"></td>
+                <td class="text-left">
+                  <span data-my-editable="food.price" data-i-type="number">&nbsp;</span>
+                </td>
+                <td class="text-left">
+                  <span data-my-editable="food.totalPrice" data-i-type="number">&nbsp;</span>
+                </td>
             </tr>
 
             <tr>
                 <td colspan="4">جمع کل</td>
-                <td><input type="number" data-ng-model="ctrl.totalPrice"></td>
+                <td class="text-left">
+                  <span data-i-type="number" data-my-editable="ctrl.totalPrice">&nbsp;</span>
+                </td>
             </tr>
         </table>
+    </div>
+
+    <div class="container-fluid non-print" data-ng-controller="foodsCntl as foods">
+        <h3 class="text-center">منو</h3>
+
+        <table class="table table-hover">
+            <tr>
+                <th width="5%">#</th>
+                <th width="50%">غذا</th>
+                <th width="35%">قیمت</th>
+                <th width="10%">#</th>
+            </tr>
+
+            <tr data-ng-repeat="food in foods.foods track by $index" data-ng-dblclick="foods.setFood(food.name, food.price)">
+                <td>
+                    <a href="#" data-ng-click="foods.setFood(food.name, food.price)">
+                        <span class="glyphicon glyphicon-ok">&nbsp;</span>
+                    </a>
+                </td>
+                <td><span data-my-editable="food.name" data-i-type="text">&nbsp;</span></td>
+                <td><span data-my-editable="food.price" data-i-type="number">&nbsp;</span></td>
+                <td>
+                    <a href="#" data-ng-click="foods.moveUp($index)">
+                        <span class="glyphicon glyphicon-arrow-up">&nbsp;</span>
+                    </a>
+                    <a href="#" data-ng-click="foods.moveDown($index)">
+                        <span class="glyphicon glyphicon-arrow-down">&nbsp;</span>
+                    </a>
+                    <a href="#" data-ng-click="foods.foods.splice($index, 1)">
+                        <span class="glyphicon glyphicon-trash">&nbsp;</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <a href="#" data-ng-click="foods.newFood()">
+            <span class="glyphicon glyphicon-plus">&nbsp;</span>
+        </a>
     </div>
 </body>
 </html>

@@ -1,11 +1,11 @@
 {
-  "name": "saber",
-  "version": "0.0.0",
-  "description": "",
+  "name": "FoodKolang",
+  "version": "0.0.1",
+  "description": "To issue bills for your food store.",
   "keywords": [],
-  
-    "homepage": "https://github.com/mkhoeini/saber",
-    "bugs": "https://github.com/mkhoeini/saber/issues",
+
+    "homepage": "https://github.com/mkhoeini/FoodKolang",
+    "bugs": "https://github.com/mkhoeini/FoodKolang/issues",
     "author": {
       "name": "Mohammad Sadegh Khoeini",
       "email": "mskco.tp@gmail.com",
@@ -13,9 +13,9 @@
     },
     "repository": {
       "type": "git",
-      "url": "git://github.com/mkhoeini/saber.git"
+      "url": "git://github.com/mkhoeini/FoodKolang.git"
     },
-  
+
   "dependencies": {},
   "devDependencies": {
     "matchdep": "~0.1.1",

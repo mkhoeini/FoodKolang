@@ -9,7 +9,6 @@ angular.module('app', ['ui.bootstrap'])
   var self = this;
 
   this.orderNumber = +localStorage.orderNumber || 1;
-  console.log(this.orderNumber);
 
   this.food = {
     name: 'سفارش',
@@ -24,7 +23,6 @@ angular.module('app', ['ui.bootstrap'])
                 });
 
   $scope.$watch('ctrl.orderNumber', function (newValue) {
-    console.log(newValue);
     if (!newValue) return;
     localStorage.orderNumber = newValue;
   });
@@ -62,17 +60,19 @@ angular.module('app', ['ui.bootstrap'])
   };
 
   this.print = function () {
-    global.total = self.totalPrice;
-    global.foods = self.foods;
-    global.orderNumber = self.orderNumber;
+    window.print();
+  };
 
-    var print_win = gui.Window.open('print.html', {
-      window: {show: false}
-    });
-
+  this.newFactor = function () {
     self.totalPrice = 0;
     self.foods = [];
     self.orderNumber += 1;
+    self.food = {
+      name: 'سفارش',
+      count: 1,
+      price: 120,
+      totalPrice: 120
+    };
   };
 })
 

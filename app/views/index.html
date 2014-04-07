@@ -15,14 +15,16 @@
     <script src="../vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <link href="../css/main.css" rel="stylesheet">
-    <link href="../css/print.css" rel="stylesheet" media="print">
     <script src="../js/index.js"></script>
 </head>
 <body data-ng-app="app" data-ng-controller="ctrl as ctrl">
     <div class="container-fluid">
         <h3 class="text-center">پرتقال</h3>
-        <a href="#" class="pull-left" data-ng-click="ctrl.print()">
+        <a href="#" class="pull-left non-print" data-ng-click="ctrl.print()">
             <span class="glyphicon glyphicon-print">&nbsp;</span>
+        </a>
+        <a href="#" class="pull-left non-print" data-ng-click="ctrl.newFactor()">
+            <span class="glyphicon glyphicon-edit">&nbsp;</span>
         </a>
 
         <div class="pull-right">
@@ -41,7 +43,7 @@
 
             <tr data-ng-repeat="food in ctrl.foods">
                 <td>
-                    <span>
+                    <span class="non-print">
                         <a href="#" data-ng-click="ctrl.foods.splice($index, 1)">
                             <span class="glyphicon glyphicon-trash">&nbsp;</span>
                         </a>
@@ -52,6 +54,7 @@
                             <span class="glyphicon glyphicon-arrow-down">&nbsp;</span>
                         </a>
                     </span>
+                    <span class="print">{{$index + 1}}</span>
                 </td>
                 <td>{{food.name}}</td>
                 <td class="text-left">{{food.count | persian}}</td>

@@ -19,3 +19,15 @@
 input {
   width: 100%;
 }
+
+@media screen {
+  .print {
+    display: none;
+  }
+}
+
+@media print {
+  .non-print {
+    display: none;
+  }
+}

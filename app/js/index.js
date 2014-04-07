@@ -14,45 +14,49 @@ angular.module('app', ['ui.bootstrap'])
     }
   });
 
-  this.food = {
-    name: 'سفارش',
-    count: 1,
-    price: 120,
-    totalPrice: 120
-  };
-
-  $scope.$watch('ctrl.food.count * ctrl.food.price',
-                function (newValue) {
-                  self.food.totalPrice = newValue;
-                });
-
   $scope.$watch('ctrl.orderNumber', function (newValue) {
     if (!newValue) return;
     localStorage.orderNumber = newValue;
   });
 
   global.setFood = function (name, price) {
-    self.food.name = name;
-    self.food.price = price;
-    self.addFood();
-    $scope.$digest();
+    self.foods.push({
+      name: name,
+      price: price,
+      count: 1,
+      totalPrice: price
+    });
   };
 
-  this.totalPrice = 100;
+  this.totalPrice = 0;
 
   this.foods = [];
 
-  $scope.$watch('ctrl.foods.length', function () {
-    var totalPrice = 0;
+  function calcTotal() {
+    var total = 0;
     angular.forEach(self.foods, function (food) {
-      totalPrice += food.totalPrice;
+      total += food.count * food.price;
     });
-    self.totalPrice = totalPrice;
+    return total;
+  }
+
+  $scope.$watch(calcTotal, function () {
+    angular.forEach(self.foods, function (food) {
+      food.totalPrice = food.price * food.count;
+    });
   });
 
-  this.addFood = function() {
-    this.foods.push($.extend({}, this.food));
-  };
+  function sumOfTotals () {
+    var total = 0;
+    angular.forEach(self.foods, function (food) {
+      total += +food.totalPrice;
+    });
+    return total;
+  }
+
+  $scope.$watch(sumOfTotals, function (newValue) {
+    self.totalPrice = newValue;
+  });
 
   this.moveUp = function(index) {
     var f = self.foods.splice(index, 1)[0];
@@ -72,12 +76,6 @@ angular.module('app', ['ui.bootstrap'])
     self.totalPrice = 0;
     self.foods = [];
     self.orderNumber += 1;
-    self.food = {
-      name: 'سفارش',
-      count: 1,
-      price: 120,
-      totalPrice: 120
-    };
   };
 })
 

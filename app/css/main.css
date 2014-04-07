@@ -1,0 +1,21 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.col-id {
+  width: 18%;
+}
+
+.col-order {
+  width: 30%;
+}
+
+.col-count {
+  width: 12%;
+}
+
+.col-fee, .col-price {
+  width: 20%;
+}
+
+input {
+  width: 100%;
+}

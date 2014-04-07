@@ -1,9 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>saber</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <title>فاکتورساز</title>
 
+    <script src="../vendor/jquery/dist/jquery.js"></script>
+    <script src="../vendor/angular/angular.js"></script>
+
+    <link href="../vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../vendor/bootstrap-rtl/dist/css/bootstrap-rtl.css" rel="stylesheet">
+    <script src="../vendor/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script src="../vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="../js/index.js"></script>
+</head>
+<body ng-app="app" ng-controller="ctrl as ctrl">
+    <div class="container-fluid">
+        <h3 class="text-center">پرتقال</h3>
+        <a href="" class="pull-left" ng-click="ctrl.print()">
+            <span class="glyphicon glyphicon-print"></span>
+        </a>
+
+        <div class="pull-right">
+            شماره سفارش
+            <input type="number" ng-model="ctrl.orderNumber">
+        </div>
+
+        <table class="table table-hover">
+            <tr>
+                <th class="col-id">#</th>
+                <th class="col-order">سفارش</th>
+                <th class="col-count text-left">تعداد</th>
+                <th class="col-fee text-left">فی</th>
+                <th class="col-price text-left">قیمت</th>
+            </tr>
+
+            <tr ng-repeat="food in ctrl.foods">
+                <td>
+                    <span>
+                        <a href="" ng-click="ctrl.foods.splice($index, 1)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <a href="" ng-click="ctrl.moveUp($index)">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </a>
+                        <a href="" ng-click="ctrl.moveDown($index)">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </a>
+                    </span>
+                </td>
+                <td>{{food.name}}</td>
+                <td class="text-left">{{food.count | persian}}</td>
+                <td class="text-left">{{food.price | persian}}</td>
+                <td class="text-left">{{food.totalPrice | persian}}</td>
+            </tr>
+
+            <tr>
+                <td class="col-id">
+                    <a ng-click="ctrl.addFood()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </td>
+                <td class="col-order"><input type="text" ng-model="ctrl.food.name"></td>
+                <td class="col-count"><input type="number" ng-model="ctrl.food.count"></td>
+                <td class="col-fee"><input type="number" ng-model="ctrl.food.price"></td>
+                <td class="col-price"><input type="number" ng-model="ctrl.food.totalPrice"></td>
+            </tr>
+
+            <tr>
+                <td colspan="4">جمع کل</td>
+                <td><input type="number" ng-model="ctrl.totalPrice"></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

@@ -5,10 +5,12 @@
   "single-instance": true,
   "window": {
     "title": "saber",
-    "width": 650,
-    "height": 650,
-    "min_width": 650,
-    "min_height": 650
+    "width": 450,
+    "height": 750,
+    "position": "center"
+    //"min_width": 650,
+    //"min_height": 650
+    //"toolbar": false,
   },
   "chromium-args": "--child-clean-exit"
 }

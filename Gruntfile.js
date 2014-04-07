@@ -179,7 +179,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('dist-win', [
-    'jshint',
+    //'jshint',
     'clean:dist',
     'copy:copyWinToTmp',
     'compress:appToTmp',

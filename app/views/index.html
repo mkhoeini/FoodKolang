@@ -15,18 +15,19 @@
     <script src="../vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
     <script src="../js/index.js"></script>
 </head>
-<body ng-app="app" ng-controller="ctrl as ctrl">
+<body data-ng-app="app" data-ng-controller="ctrl as ctrl">
     <div class="container-fluid">
         <h3 class="text-center">پرتقال</h3>
-        <a href="" class="pull-left" ng-click="ctrl.print()">
-            <span class="glyphicon glyphicon-print"></span>
+        <a href="#" class="pull-left" data-ng-click="ctrl.print()">
+            <span class="glyphicon glyphicon-print">&nbsp;</span>
         </a>
 
         <div class="pull-right">
             شماره سفارش
-            <input type="number" ng-model="ctrl.orderNumber">
+            <input type="number" data-ng-model="ctrl.orderNumber">
         </div>
 
         <table class="table table-hover">
@@ -38,17 +39,17 @@
                 <th class="col-price text-left">قیمت</th>
             </tr>
 
-            <tr ng-repeat="food in ctrl.foods">
+            <tr data-ng-repeat="food in ctrl.foods">
                 <td>
                     <span>
-                        <a href="" ng-click="ctrl.foods.splice($index, 1)">
-                            <span class="glyphicon glyphicon-trash"></span>
+                        <a href="#" data-ng-click="ctrl.foods.splice($index, 1)">
+                            <span class="glyphicon glyphicon-trash">&nbsp;</span>
                         </a>
-                        <a href="" ng-click="ctrl.moveUp($index)">
-                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        <a href="#" data-ng-click="ctrl.moveUp($index)">
+                            <span class="glyphicon glyphicon-arrow-up">&nbsp;</span>
                         </a>
-                        <a href="" ng-click="ctrl.moveDown($index)">
-                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        <a href="#" data-ng-click="ctrl.moveDown($index)">
+                            <span class="glyphicon glyphicon-arrow-down">&nbsp;</span>
                         </a>
                     </span>
                 </td>
@@ -60,19 +61,19 @@
 
             <tr>
                 <td class="col-id">
-                    <a ng-click="ctrl.addFood()">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <a href="#" data-ng-click="ctrl.addFood()">
+                        <span class="glyphicon glyphicon-plus">&nbsp;</span>
                     </a>
                 </td>
-                <td class="col-order"><input type="text" ng-model="ctrl.food.name"></td>
-                <td class="col-count"><input type="number" ng-model="ctrl.food.count"></td>
-                <td class="col-fee"><input type="number" ng-model="ctrl.food.price"></td>
-                <td class="col-price"><input type="number" ng-model="ctrl.food.totalPrice"></td>
+                <td class="col-order"><input type="text" data-ng-model="ctrl.food.name"></td>
+                <td class="col-count"><input type="number" data-ng-model="ctrl.food.count"></td>
+                <td class="col-fee"><input type="number" data-ng-model="ctrl.food.price"></td>
+                <td class="col-price"><input type="number" data-ng-model="ctrl.food.totalPrice"></td>
             </tr>
 
             <tr>
                 <td colspan="4">جمع کل</td>
-                <td><input type="number" ng-model="ctrl.totalPrice"></td>
+                <td><input type="number" data-ng-model="ctrl.totalPrice"></td>
             </tr>
         </table>
     </div>

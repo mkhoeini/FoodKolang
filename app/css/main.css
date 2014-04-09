@@ -30,4 +30,12 @@ input {
   .non-print {
     display: none;
   }
+
+  .col-id {
+    width: 5%;
+  }
+
+  .col-order {
+    width: 43%;
+  }
 }

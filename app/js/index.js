@@ -1,5 +1,5 @@
 
-angular.module('app', ['ui.bootstrap'])
+angular.module('app', ['ui.bootstrap', 'ui.sortable'])
 
 .controller('ctrl', function($scope) {
   var self = this;
@@ -19,11 +19,11 @@ angular.module('app', ['ui.bootstrap'])
     localStorage.orderNumber = newValue;
   });
 
-  global.setFood = function (name, price) {
+  global.setFood = function (name, price, count) {
     self.foods.push({
       name: name,
       price: price,
-      count: 1,
+      count: count,
       totalPrice: price
     });
   };
@@ -57,16 +57,6 @@ angular.module('app', ['ui.bootstrap'])
   $scope.$watch(sumOfTotals, function (newValue) {
     self.totalPrice = newValue;
   });
-
-  this.moveUp = function(index) {
-    var f = self.foods.splice(index, 1)[0];
-    self.foods.splice(index - 1, 0, f);
-  };
-
-  this.moveDown = function(index) {
-    var f = self.foods.splice(index, 1)[0];
-    self.foods.splice(index + 1, 0, f);
-  };
 
   this.print = function () {
     window.print();
@@ -133,9 +123,11 @@ angular.module('app', ['ui.bootstrap'])
 .controller('foodsCntl', function ($scope) {
   var self = this;
   this.foods = JSON.parse(localStorage.foods || '[]');
+  this.foodCount = 1;
 
-  this.setFood = function (name, price) {
-    global.setFood(name, price);
+  this.setFood = function (name, price, count) {
+    global.setFood(name, price, count);
+    self.foodCount = 1;
   };
 
   $scope.$watch('foods.foods', function (newValue) {
@@ -143,17 +135,11 @@ angular.module('app', ['ui.bootstrap'])
     localStorage.foods = JSON.stringify(newValue);
   }, true);
 
-  this.moveUp = function(index) {
-    var f = self.foods.splice(index, 1)[0];
-    self.foods.splice(index - 1, 0, f);
+  this.newGroup = function () {
+    self.foods.push({name: '-', collapsed: false, foods: []});
   };
 
-  this.moveDown = function(index) {
-    var f = self.foods.splice(index, 1)[0];
-    self.foods.splice(index + 1, 0, f);
-  };
-
-  this.newFood = function () {
-    self.foods.push({});
+  this.newFood = function (group) {
+    group.foods.push({});
   };
 })

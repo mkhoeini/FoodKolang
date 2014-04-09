@@ -5,7 +5,9 @@
     <title>فاکتورساز</title>
 
     <script src="../vendor/jquery/dist/jquery.js"></script>
+    <script src="../vendor/jquery-ui/ui/jquery-ui.js"></script>
     <script src="../vendor/angular/angular.js"></script>
+    <script src="../vendor/angular-ui-sortable/sortable.js"></script>
 
     <link href="../vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="../vendor/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
@@ -35,6 +37,7 @@
         </div>
 
         <table class="table table-hover">
+          <thead>
             <tr>
                 <th class="col-id">#</th>
                 <th class="col-order">سفارش</th>
@@ -42,18 +45,14 @@
                 <th class="col-fee text-left">فی</th>
                 <th class="col-price text-left">قیمت</th>
             </tr>
+          </thead>
 
+          <tbody data-ui-sortable data-ng-model="ctrl.foods">
             <tr data-ng-repeat="food in ctrl.foods">
                 <td>
                     <span class="non-print">
                         <a href="#" data-ng-click="ctrl.foods.splice($index, 1)">
                             <span class="glyphicon glyphicon-trash">&nbsp;</span>
-                        </a>
-                        <a href="#" data-ng-click="ctrl.moveUp($index)">
-                            <span class="glyphicon glyphicon-arrow-up">&nbsp;</span>
-                        </a>
-                        <a href="#" data-ng-click="ctrl.moveDown($index)">
-                            <span class="glyphicon glyphicon-arrow-down">&nbsp;</span>
                         </a>
                     </span>
                     <span class="print">{{$index + 1 | persian}}</span>
@@ -69,6 +68,7 @@
                   <span data-my-editable="food.totalPrice" data-i-type="number">&nbsp;</span>
                 </td>
             </tr>
+          </tbody>
 
             <tr>
                 <td colspan="4">جمع کل</td>
@@ -82,37 +82,60 @@
     <div class="container-fluid non-print" data-ng-controller="foodsCntl as foods">
         <h3 class="text-center">منو</h3>
 
-        <table class="table table-hover">
-            <tr>
-                <th width="5%">#</th>
-                <th width="50%">غذا</th>
-                <th width="35%">قیمت</th>
-                <th width="10%">#</th>
-            </tr>
+        <div data-ui-sortable data-ng-model="foods.foods">
+          <div data-ng-repeat="group in foods.foods">
+            <a href="#" data-ng-click="group.collapsed=!group.collapsed">
+              <span class="glyphicon" 
+                data-ng-class="{'glyphicon-chevron-down': !group.collapsed,
+                'glyphicon-chevron-left':  group.collapsed}">&nbsp;</span>
+            </a>
+            <span data-my-editable="group.name" data-i-type="text">&nbsp;</span>
+            <div class="pull-left">
+              <a href="#" data-ng-click="foods.foods.splice($index, 1)">
+                <span class="glyphicon glyphicon-trash">&nbsp;</span>
+              </a>
+            </div>
 
-            <tr data-ng-repeat="food in foods.foods track by $index" data-ng-dblclick="foods.setFood(food.name, food.price)">
-                <td>
-                    <a href="#" data-ng-click="foods.setFood(food.name, food.price)">
+            <div data-collapse="group.collapsed">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th width="5%">#</th>
+                    <th width="40%">غذا</th>
+                    <th width="15%">تعداد</th>
+                    <th width="30%">قیمت</th>
+                    <th width="10%">#</th>
+                  </tr>
+                </thead>
+
+                <tbody data-ui-sortable data-ng-model="group.foods">
+                  <tr data-ng-repeat="food in group.foods">
+                    <td>
+                      <a href="#" data-ng-click="foods.setFood(food.name, food.price, foods.foodCount)">
                         <span class="glyphicon glyphicon-ok">&nbsp;</span>
-                    </a>
-                </td>
-                <td><span data-my-editable="food.name" data-i-type="text">&nbsp;</span></td>
-                <td><span data-my-editable="food.price" data-i-type="number">&nbsp;</span></td>
-                <td>
-                    <a href="#" data-ng-click="foods.moveUp($index)">
-                        <span class="glyphicon glyphicon-arrow-up">&nbsp;</span>
-                    </a>
-                    <a href="#" data-ng-click="foods.moveDown($index)">
-                        <span class="glyphicon glyphicon-arrow-down">&nbsp;</span>
-                    </a>
-                    <a href="#" data-ng-click="foods.foods.splice($index, 1)">
+                      </a>
+                    </td>
+                    <td><span data-my-editable="food.name" data-i-type="text">&nbsp;</span></td>
+                    <td><input type="number" data-ng-model="foods.foodCount"></td>
+                    <td><span data-my-editable="food.price" data-i-type="number">&nbsp;</span></td>
+                    <td>
+                      <a href="#" data-ng-click="group.foods.splice($index, 1)">
                         <span class="glyphicon glyphicon-trash">&nbsp;</span>
-                    </a>
-                </td>
-            </tr>
-        </table>
-        <a href="#" data-ng-click="foods.newFood()">
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="#" data-ng-click="foods.newFood(group)">
+                <span class="glyphicon glyphicon-plus">&nbsp;</span>
+                گزینه&nbsp;ی جدید
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="#" data-ng-click="foods.newGroup()">
             <span class="glyphicon glyphicon-plus">&nbsp;</span>
+            گروه جدید
         </a>
     </div>
 </body>

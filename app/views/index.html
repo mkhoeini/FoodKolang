@@ -36,19 +36,29 @@
             <span data-i-type="number" data-my-editable="ctrl.orderNumber">&nbsp;</span>
         </div>
 
-        <table class="table table-hover">
+        <table dir="ltr" class="table table-hover">
           <thead>
-            <tr>
-                <th class="col-id">#</th>
-                <th class="col-order">سفارش</th>
-                <th class="col-count text-left">تعداد</th>
-                <th class="col-fee text-left">فی</th>
+            <tr dir="rtl">
                 <th class="col-price text-left">قیمت</th>
+                <th class="col-fee text-left">فی</th>
+                <th class="col-count text-left">تعداد</th>
+                <th class="col-order">سفارش</th>
+                <th class="col-id">#</th>
             </tr>
           </thead>
 
           <tbody data-ui-sortable data-ng-model="ctrl.foods">
-            <tr data-ng-repeat="food in ctrl.foods">
+            <tr dir="rtl" data-ng-repeat="food in ctrl.foods">
+                <td class="text-left">
+                  <span data-my-editable="food.totalPrice" data-i-type="number">&nbsp;</span>
+                </td>
+                <td class="text-left">
+                  <span data-my-editable="food.price" data-i-type="number">&nbsp;</span>
+                </td>
+                <td class="text-left">
+                  <span data-my-editable="food.count" data-i-type="number">&nbsp;</span>
+                </td>
+                <td><span data-my-editable="food.name" data-i-type="text">&nbsp;</span></td>
                 <td>
                     <span class="non-print">
                         <a href="#" data-ng-click="ctrl.foods.splice($index, 1)">
@@ -57,24 +67,14 @@
                     </span>
                     <span class="print">{{$index + 1 | persian}}</span>
                 </td>
-                <td><span data-my-editable="food.name" data-i-type="text">&nbsp;</span></td>
-                <td class="text-left">
-                  <span data-my-editable="food.count" data-i-type="number">&nbsp;</span>
-                </td>
-                <td class="text-left">
-                  <span data-my-editable="food.price" data-i-type="number">&nbsp;</span>
-                </td>
-                <td class="text-left">
-                  <span data-my-editable="food.totalPrice" data-i-type="number">&nbsp;</span>
-                </td>
             </tr>
           </tbody>
 
-            <tr>
-                <td colspan="4">جمع کل</td>
+            <tr dir="rtl">
                 <td class="text-left">
                   <span data-i-type="number" data-my-editable="ctrl.totalPrice">&nbsp;</span>
                 </td>
+                <td colspan="4">جمع کل</td>
             </tr>
         </table>
     </div>

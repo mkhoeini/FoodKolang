@@ -38,4 +38,9 @@ input {
   .col-order {
     width: 43%;
   }
+
+  td {
+    position: relative !important;
+    right: 0 !important;
+  }
 }
